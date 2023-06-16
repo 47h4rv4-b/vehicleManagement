@@ -21,7 +21,6 @@ from models.models import (
     GetVehicle,
     Login,
     AddVehicle,
-    S3Upload,
     VerifyNumber,
 )
 from middleware.islogin import oauth2_scheme
@@ -97,16 +96,16 @@ def show_one(get_vehicle_model: GetVehicle, token: List = Depends(oauth2_scheme)
 
 
 # Model for bike details
-class BikeDetails(BaseModel):
-    registration_number: str = Field(..., description="Registration number")
-    bike_brand: str = Field(..., description="Brand name")
-    bike_model: str = Field(..., description="Model name")
-    ownership_status: str = Field(..., description="Bike owner")
-    year: int = Field(..., description="Year of manufacture")
-    location: str = Field(..., description="Location")
-    kms_driven: int = Field(..., description="No. of kilometers driven")
-    power: int = Field(..., description="Bike power")
-    timestamp: int = Field(..., description="Current timestamp")
+# class BikeDetails(BaseModel):
+#     registration_number: str = Field(..., description="Registration number")
+#     bike_brand: str = Field(..., description="Brand name")
+#     bike_model: str = Field(..., description="Model name")
+#     ownership_status: str = Field(..., description="Bike owner")
+#     year: int = Field(..., description="Year of manufacture")
+#     location: str = Field(..., description="Location")
+#     kms_driven: int = Field(..., description="No. of kilometers driven")
+#     power: int = Field(..., description="Bike power")
+#     timestamp: int = Field(..., description="Current timestamp")
 
     # Add other fields as needed
 
@@ -117,12 +116,12 @@ def root(request: Request):
 
 
 @app.post("/get_bike_details", tags=["Vehicle details"])
-def get_bike_details(bike_info: BikeDetails):
-    # Perform database query or any other logic to get bike details based on registration number
-    registration_number = bike_info.registration_number
-    # Assuming you have a function to get bike details, update the logic below accordingly
-    bike_details = get_bike_details_from_database(registration_number)
-    return bike_details
+# def get_bike_details(bike_info: BikeDetails):
+#     # Perform database query or any other logic to get bike details based on registration number
+#     registration_number = bike_info.registration_number
+#     # Assuming you have a function to get bike details, update the logic below accordingly
+#     bike_details = get_bike_details_from_database(registration_number)
+#     return bike_details
 
 
 def get_bike_details_from_database(registration_number: str):

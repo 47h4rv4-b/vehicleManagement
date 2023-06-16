@@ -54,9 +54,46 @@ class AddVehicle(BaseModel):
         default=None, description="List of path of all video files"
     )
 
+class DeleteFile(BaseModel):
+    file_path: str = Query(..., description="File path in s3 bucket")
 
 ###########
 # Get Vehicle
 ###########
 class GetVehicle(BaseModel):
     registration_number: str = Field(..., description="Registration number")
+
+###########
+# Get Vehicle
+###########
+class GetVehicle(BaseModel):
+    registration_number: str = Field(..., description="Registration number")
+
+
+class Trigger(str, Enum):
+    Audio = "Audio"
+    Video = "Video"
+
+
+###########
+# S3 upload
+###########
+class S3Upload(BaseModel):
+    filename: str = Field(..., description="Filenames")
+    trigger: Trigger = Field(..., description="Audio or Video")
+    timestamp: str = Field(..., description="Current timestamp")
+
+
+###########
+# Registration number verification
+###########
+class VerifyNumber(BaseModel):
+    registration_number: str = Field(..., description="Registration number")
+
+
+###########
+# Get downlodable link
+###########
+class GetDownloadLink(BaseModel):
+    registration_number: str = Field(..., description="Registration number")
+    trigger: Trigger = Field(..., description="Audio or Video")
