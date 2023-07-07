@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Information</title>
+</head>
+<body>
+    <h1>Vehicle Information</h1>
+    
+    <form id="vehicleForm">
+        <label for="registrationNumber">Registration Number:</label>
+        <input type="text" id="registrationNumber" name="registrationNumber" required>
+        <button type="submit">Get Details</button>
+    </form>
+    
+    <div id="vehicleDetails">
+        <!-- Bike details will be displayed here -->
+    </div>
+
+    <script>
+        document.getElementById("vehicleForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Get the entered registration number
+            var registrationNumber = document.getElementById("registrationNumber").value;
+
+            // Make an API request to fetch the bike details
+            fetch("/get_bike_details", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    registration_number: registrationNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the bike details
+                var vehicleDetails = document.getElementById("vehicleDetails");
+                vehicleDetails.innerHTML = ""; // Clear previous details
+
+                var detailsList = document.createElement("ul");
+
+                // Add each detail as a list item
+                Object.keys(data).forEach(function(key) {
+                    var detailItem = document.createElement("li");
+                    detailItem.textContent = key + ": " + data[key];
+                    detailsList.appendChild(detailItem);
+                });
+
+                vehicleDetails.appendChild(detailsList);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>
