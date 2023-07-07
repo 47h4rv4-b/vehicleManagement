@@ -18,7 +18,7 @@ The Vehicle Information Database is a web-based application developed to manage 
 - HTML/CSS: HTML and CSS are used for designing and styling the web pages.
 
 ## Getting Started
-1. Clone the repository: `git clone https://github.com/your-username/vehicle-information-database.git`
+1. Clone the repository: `git clone https://github.com/atharvaBaste/vehicleManagement`
 2. Install the dependencies: `pip install -r requirements.txt`
 3. Configure the MongoDB connection in the `config.py` file.
 4. Start the application: `uvicorn main:app --reload`
