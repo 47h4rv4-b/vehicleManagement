@@ -45,3 +45,4 @@ watchfiles==0.18.1
 websockets==10.4
 wrapt==1.14.1
 zipp==3.10.0
+pydantic[email]
