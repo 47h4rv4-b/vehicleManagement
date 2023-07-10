@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Vehicle</title>
+</head>
+<body>
+    <h1>Add Vehicle</h1>
+    
+    <form id="addVehicleForm">
+        <label for="registrationNumber">Registration Number:</label>
+        <input type="text" id="registrationNumber" name="registrationNumber" required>
+        <!-- Add more input fields for other bike details -->
+        <label for="bikeBrand">Brand:</label>
+        <input type="text" id="bikeBrand" name="bikeBrand" required>
+        
+        <label for="bikeModel">Model:</label>
+        <input type="text" id="bikeModel" name="bikeModel" required>
+        
+        <!-- Add more fields as needed -->
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById("addVehicleForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+    
+            // Get the entered bike details
+            var registrationNumber = document.getElementById("registrationNumber").value;
+            var bikeBrand = document.getElementById("bikeBrand").value;
+            var bikeModel = document.getElementById("bikeModel").value;
+    
+            // Create a new FormData object
+            var formData = new FormData();
+            formData.append("registration_number", registrationNumber);
+            formData.append("bike_brand", bikeBrand);
+            formData.append("bike_model", bikeModel);
+    
+            // Make an API request to add the vehicle
+            fetch("/add_vehicle", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data);
+                // Optionally, show a success message or redirect to another page
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                // Handle the error condition
+            });
+        });
+    </script>
+    
+</body>
+</html>

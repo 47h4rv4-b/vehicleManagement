@@ -35,20 +35,32 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Display the bike details
+                // Display the bike details or add vehicle option
                 var vehicleDetails = document.getElementById("vehicleDetails");
                 vehicleDetails.innerHTML = ""; // Clear previous details
 
-                var detailsList = document.createElement("ul");
+                if (data.bike_details) {
+                    var detailsList = document.createElement("ul");
 
-                // Add each detail as a list item
-                Object.keys(data).forEach(function(key) {
-                    var detailItem = document.createElement("li");
-                    detailItem.textContent = key + ": " + data[key];
-                    detailsList.appendChild(detailItem);
-                });
+                    // Add each detail as a list item
+                    Object.keys(data.bike_details).forEach(function(key) {
+                        var detailItem = document.createElement("li");
+                        detailItem.textContent = key + ": " + data.bike_details[key];
+                        detailsList.appendChild(detailItem);
+                    });
 
-                vehicleDetails.appendChild(detailsList);
+                    vehicleDetails.appendChild(detailsList);
+                } else {
+                    var errorMessage = document.createElement("p");
+                    errorMessage.textContent = "Bike details not found";
+                    vehicleDetails.appendChild(errorMessage);
+
+                    var addVehicleLink = document.createElement("a");
+                    addVehicleLink.href = "/add_vehicle";
+                    addVehicleLink.textContent = "Add Vehicle";
+
+                    vehicleDetails.appendChild(addVehicleLink);
+                }
             })
             .catch(error => {
                 console.error("Error:", error);
